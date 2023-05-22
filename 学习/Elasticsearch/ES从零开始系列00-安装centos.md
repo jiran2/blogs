@@ -1,0 +1,254 @@
+# 安装说明
+
+```
+和大家说明一下，我们的目的仅仅是要安装一个centos7，然后在centos7上部署ElasticSearch
+如果搞不定vagrant+virtualbox的方式，可以直接使用VM搭建一个centos7或者使用一台云服务器安装centos7
+我们的目的只是为了得到一个centos7的机器，所以不必花太多精力在这个环境问题上折腾
+
+我使用的环境是
+【
+    win11 64位
+    VirtualBox-6.1.32-149290-Win
+    vagrant_2.2.19_x86_64.msi
+    virtualbox.box
+】
+
+环境软件网盘地址
+链接：https://pan.baidu.com/s/1GZPqufc3g9Mv7KqaiL4rgQ?pwd=sxz4 
+提取码：sxz4 
+```
+
+# 安装步骤
+
+## 安装centos7
+
+```
+01 创建centos7文件夹，并进入其中[目录全路径不要有中文字符]，我的目录是D:\centos7
+
+02 将virtualbox.box文件添加到vagrant管理的镜像中
+	(1)下载网盘中的virtualbox.box文件
+    (2)保存到磁盘的某个目录，比如D:\centos7\virtualbox.box
+    (3)添加镜像并起名叫centos/7：vagrant box add centos/7 D:\centos7\virtualbox.box
+    (4)vagrant box list  查看本地的box[这时候可以看到centos/7]
+
+03 在此目录下打开cmd，运行vagrant init centos/7
+   此时会在当前目录下生成Vagrantfile，同时指定使用的镜像为centos/7
+    
+04 centos/7镜像有了，根据Vagrantfile文件启动创建虚拟机【Vagrantfile脚本见下面】
+	来到centos7文件夹，在此目录打开cmd窗口，执行vagrant up [打开virtual box观察，可以发现centos7创建成功]
+	
+05 以后大家操作虚拟机，还是要在centos文件夹打开cmd窗口操作
+	vagrant halt   优雅关闭
+	vagrant up     正常启动
+	
+06 vagrant常用命令
+	(1)vagrant ssh    
+    	进入刚才创建的centos7中
+    (2)vagrant status
+    	查看centos7的状态
+    (3)vagrant halt
+    	停止/关闭centos7
+    (4)vagrant destroy
+    	删除centos7
+    (5)vagrant status
+    	查看当前vagrant创建的虚拟机
+    (6)Vagrantfile中也可以写脚本命令，使得centos7更加丰富
+    	但是要注意，修改了Vagrantfile，要想使正常运行的centos7生效，必须使用vagrant reload
+```
+
+## 修改Vagrantfile文件
+
+### 单个虚拟机
+
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "centos/7"
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  # config.vm.box_check_update = false
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # NOTE: This will enable public access to the opened port
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine and only allow access
+  # via 127.0.0.1 to disable public access
+  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  # config.vm.network "private_network", ip: "192.168.33.10"
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  config.vm.network "public_network"
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  # config.vm.provider "virtualbox" do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+  #   vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+  #   vb.memory = "2048"
+  # end
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "4000"
+        vb.name= "jack-centos7"
+        vb.cpus= 2
+    end
+  #
+  # View the documentation for the provider you are using for more
+  # information on available options.
+
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   apt-get update
+  #   apt-get install -y apache2
+  # SHELL
+end
+
+```
+
+### 多台虚拟机
+
+ip地址需要和当前电脑处于同一网段，就是前三个段和本机一样
+
+如：我的电脑就是192.168.0.110
+
+<img src="https://gitee.com/kitten8/typora-img/raw/master/imgs/image-20220823213945277.png" alt="image-20220823213945277" style="zoom:50%;" align='left'/>
+
+```ruby
+boxes = [
+  {
+    :name => "centos100",
+    :eth1 => "192.168.0.100",
+    :mem => "4096",
+    :cpu => "2",
+  },
+  {
+    :name => "centos101",
+    :eth1 => "192.168.0.101",
+    :mem => "2048",
+    :cpu => "2",
+  },
+  {
+    :name => "centos102",
+    :eth1 => "192.168.0.102",
+    :mem => "2048",
+    :cpu => "2",
+  },
+  {
+    :name => "centos103",
+    :eth1 => "192.168.0.103",
+    :mem => "2048",
+    :cpu => "2",
+  }
+]
+Vagrant.configure(2) do |config|
+  config.vm.box = "centos/7"
+  Encoding.default_external = 'UTF-8'
+  boxes.each do |opts|
+    config.vm.define opts[:name] do |config|
+      config.vm.hostname = opts[:name]
+      config.vm.network "public_network", ip: opts[:eth1]
+      config.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--memory", opts[:mem]]
+        v.customize ["modifyvm", :id, "--cpus", opts[:cpu]]
+        v.customize ["modifyvm", :id, "--name", opts[:name]]
+      end
+    end
+  end
+end
+```
+
+#### 解释说明
+
+```ruby
+01 `指定使用的box`
+	config.vm.box = "centos/7"
+02 `指定编码方式，否则可能会报错“GBK to UTF-8”`
+	Encoding.default_external = 'UTF-8'
+03 `指定虚拟机的hostname`
+	config.vm.hostname = "single"
+04 `指定虚拟机使用的网络`
+	# host-only: 仅主机可访问虚拟机
+	# 配置当前vm的host-only网络,ip、type需要二选一
+	config.vm.network "private_network"[, type: "dhcp"][, ip: "192.168.56.20"]
+
+    # bridge: 局域网均可访问虚拟机
+    # 配置bridge桥接网络，ip、bridge为可选项【不指定bridge时，如果是混合网络的话启动时会提示选择】
+    config.vm.network "public_network"[, bridge: "Intel(R) Dual Band Wireless-AC 8260"][, ip: "192.168.0.20"]
+
+05 `指定本地映射到虚拟机的端口`
+	# 默认2222，启动后可通过“telnet 127.0.0.1 2222”连接到虚拟机
+	# 修改此端口为22220，即使用“telnet 127.0.0.1 22220”连接到虚拟机
+	config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: "true"
+	config.vm.network "forwarded_port", guest: 22, host: 22220
+06 `virtualbox其他参数设置`
+	config.vm.provider "virtualbox" do |vb|
+		v.customize ["modifyvm", :id, "--memory", "4096"] 【内存数，单位MB】
+		v.customize ["modifyvm", :id, "--cpus", "2"] 【cpu数】
+		v.customize ["modifyvm", :id, "--name", "single"] 【主机名】
+    end
+```
+
+## 开启远程登录
+
+默认虚拟机关闭远程ssh登录，我们需要打开才能使用ssh连接
+
+1. 登录完成可以在VirtualBox里面看到已经启动的虚拟机
+   <img src="https://gitee.com/kitten8/typora-img/raw/master/imgs/image-20220220164935166.png" alt="image-20220220164935166" style="zoom: 33%;" />
+
+2. 随便选一个虚拟机双击，从virtualbox里面进去，使用默认账号登录
+
+   ```
+   vagrant账号
+   账号：vagrant
+   密码：vagrant
+   
+   root账号
+   账号：root
+   密码：vagrant
+   ```
+
+3. 开启SSH账号密码登录(root账号登录) 系统默认关闭远程ssh登录
+
+   ```shell
+   # 设置账号密码为yes
+   vi /etc/ssh/sshd_config
+   设置PasswordAuthentication yes
+   
+   # 重启服务
+   systemctl restart sshd
+   ```
+

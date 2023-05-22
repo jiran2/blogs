@@ -3,6 +3,6 @@ D:
 
 cd D:\blogs
 
-start /b push.bat
+start /b blog_push.bat
 
 echo "Success start push.bat"

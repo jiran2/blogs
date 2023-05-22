@@ -4,6 +4,10 @@ Zookeeper是一个分布式协调服务，它可以用来管理集群中的配�
 
 ## 1. 安装Java环境
 
+
+
+
+
 在安装Zookeeper之前，您需要安装Java环境。可以从官网下载JDK安装包，并按照提示进行安装。
 
 [安装JDK](https://www.notion.so/JDK-d19b0b4ebb874acf918a6456bc1f0b67)

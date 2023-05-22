@@ -22,7 +22,7 @@ echo "%now%" >> blog_push.log
 git push 2>>blog_push.log
 
 echo "%now%" >> blog_push.log
-set /a "pause_time=%RANDOM% %% 17 + 1"
+set /a "pause_time=%RANDOM% %% 89 + 1"
 timeout /nobreak /t %pause_time% 2>>blog_push.log
 
 goto begin

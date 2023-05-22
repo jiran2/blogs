@@ -1,1 +1,6 @@
 Everything up-to-date
+warning: LF will be replaced by CRLF in blog_error.log.
+The file will have its original line endings in your working directory
+remote: Resolving deltas:   0% (0/2)        remote: Resolving deltas:  50% (1/2)        remote: Resolving deltas: 100% (2/2)        remote: Resolving deltas: 100% (2/2), completed with 2 local objects.        
+To github.com:jiran2/blogs.git
+   b434c9f..2918726  main -> main

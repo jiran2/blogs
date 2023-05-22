@@ -16,7 +16,7 @@ git pull 2>>blog_error.log
   
 git push 2>>blog_error.log
  
-echo "%now%" > blog_push.log
+echo "%now%" >> blog_push.log
 
 set /a "pause_time=%RANDOM% %% 17 + 1"
 timeout /nobreak /t %pause_time% 2>>blog_error.log

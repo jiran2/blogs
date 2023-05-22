@@ -46,3 +46,6 @@ To github.com:jiran2/blogs.git
 remote: Resolving deltas:   0% (0/2)        remote: Resolving deltas:  50% (1/2)        remote: Resolving deltas: 100% (2/2)        remote: Resolving deltas: 100% (2/2), completed with 2 local objects.        
 To github.com:jiran2/blogs.git
    8d3c19b..b7d4470  main -> main
+remote: Resolving deltas:   0% (0/2)        remote: Resolving deltas:  50% (1/2)        remote: Resolving deltas: 100% (2/2)        remote: Resolving deltas: 100% (2/2), completed with 2 local objects.        
+To github.com:jiran2/blogs.git
+   b7d4470..b3b3f31  main -> main

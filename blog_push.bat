@@ -7,6 +7,8 @@ start mshta vbscript:createobject("wscript.shell").run("""%~nx0"" h",0)(window.c
 del blog_push.log
 del blog_error.log
 
+set now=%date% %time%
+
 D:
 cd /d D:\blogs
 

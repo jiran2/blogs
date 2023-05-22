@@ -12,7 +12,8 @@ set now=%date% %time%
 D:
 cd /d D:\blogs
 
-git add * 2>>blog_error.log
+echo "%now%" >> blog_push.log
+git add * 2>>blog_push.log
 
 set now=%date% %time%
 git commit -m "auto commit at %now%" 2>>blog_error.log

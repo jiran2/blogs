@@ -1,2 +1,17 @@
  
 "2023/05/25 周四  0:29:04.17" 
+"2023/05/25 周四  0:29:04.17" 
+"2023/05/25 周四  0:29:04.17" 
+error: Your local changes to the following files would be overwritten by merge:
+	blog_push.log
+Please commit your changes or stash them before you merge.
+Aborting
+"2023/05/25 周四  0:29:04.17" 
+To github.com:jiran2/blogs.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:jiran2/blogs.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+"2023/05/25 周四  0:29:04.17" 
